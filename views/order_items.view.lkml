@@ -1,6 +1,5 @@
 view: order_items {
   sql_table_name: thelook.order_items ;;
-  drill_fields: [id]
 
   dimension: id {
     primary_key: yes
@@ -35,6 +34,16 @@ view: order_items {
   }
   measure: count {
     type: count
+    link: {
+      label: "Show all {{rendered_value}}"
+      url: "{% assign vis_config = '{\"type\":\"looker_grid\",\"series_cell_visualizations\":{}}' | url_encode | prepend: '&vis_config=' %}{{drill_down._link}}{{vis_config}}"
+    }
+
+  }
+  measure: drill_down {
+    type: number
+    sql: 1 ;;
+    hidden: yes
     drill_fields: [id, orders.id, inventory_items.id, orders.count]
   }
 }
