@@ -65,4 +65,8 @@ view: users {
     type: count
     drill_fields: [id, last_name, first_name, orders.count]
   }
+  measure: test_measure {
+    type: number
+    sql: 22 ;;
+  }
 }
